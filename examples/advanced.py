@@ -34,13 +34,26 @@ def get_daily_average(target_date: date = date.today(), area: str = "LV"):
     return mean(p["value"] for p in prices)
 
 
-def get_current_price(area: str = "LV"):
-    now = datetime.now(TZ)
-    prices = get_prices_15min(date.today(), area)
+def get_current_price(target_date=None, area: str = "LV"):
+    if target_date is None:
+        target_date = datetime.now(TZ).date()
 
-    for p in prices:
-        if p["start"] <= now < p["end"]:
-            return p
+    prices_spot = elspot.Prices("EUR")
+
+    data = prices_spot.fetch(
+        end_date=target_date,
+        areas=[area],
+        resolution=15,
+    )
+
+    now = datetime.now(TZ)
+
+    for entry in data["areas"][area]["values"]:
+        start = entry["start"].astimezone(TZ)
+        end = entry["end"].astimezone(TZ)
+
+        if start <= now < end:
+            return entry["value"]
 
     return None
 

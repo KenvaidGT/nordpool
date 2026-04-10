@@ -76,7 +76,4 @@ if __name__ == "__main__":
     print(f"Daily average: {avg:.2f} EUR/MWh")
 
     current = get_current_price()
-    if current:
-        s = current["start"].strftime("%H:%M")
-        e = current["end"].strftime("%H:%M")
-        print(f"Current price ({s}-{e}): {current['value']:.2f} EUR/MWh")
+    print(f"Current price: {current:.2f} EUR/MWh")

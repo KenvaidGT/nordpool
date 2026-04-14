@@ -23,7 +23,7 @@ def get_prices_15min(target_date: date = date.today(), area: str = "LV"):
         result.append({
             "start": entry["start"].astimezone(TZ),
             "end": entry["end"].astimezone(TZ),
-            "value": entry["value"],  # EUR/MWh
+            "value": entry["value"],
         })
 
     return result

@@ -9,7 +9,5 @@ git fetch origin
 git reset --hard origin/main
 git clean -fd
 
-docker compose pull
-docker compose up -d --build
 
 echo "Deploy finished"
